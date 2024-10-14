@@ -1,5 +1,6 @@
 use std::error::Error;
 use std::{env, fs};
+use colored::*;
 
 pub struct Config {
     pub query: String,
@@ -36,7 +37,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     };
 
     for line in results {
-        println!("{line}");
+        let colored_line = line.to_owned();
+        let colored_line = colored_line.replace(&config.query, &format!("{}", &config.query.red()));
+        println!("{colored_line}");
     }
 
     Ok(())
